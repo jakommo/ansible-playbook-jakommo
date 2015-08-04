@@ -1,0 +1,43 @@
+---
+- hosts: all
+  vars:
+   srv: false
+   web: false
+   dev: false
+   gui: true
+   ppa: true
+
+  tasks:
+   - include_vars: vars/Packages.yml
+
+   - name: Install cli items
+     apt: pkg="{{ item }}" state=installed cache_valid_time=10800
+     with_items: "{{ cli_items }}"
+
+   - name: Install gui items
+     apt: pkg="{{ item }}" state=installed cache_valid_time=10800
+     with_items: "{{ gui_items }}"
+     when: gui
+   
+   - name: Install ppa
+     apt_repository: repo="{{ item }}" state=present
+     with_items: "{{ ppa_items }}"
+     when: ppa
+
+   - name: Install ppa content
+     apt: pkg="{{ item }}" state=present update_cache=true
+     with_items: "{{ from_ppa_items }}"
+     when: ppa
+
+   - name: Add chrome key
+     apt_key: url="https://dl-ssl.google.com/linux/linux_signing_key.pub" state=present
+     when: gui
+ 
+   - name: Add chrome repo
+     apt_repository: repo="deb http://dl.google.com/linux/chrome/deb/ stable main" state=present
+     when: gui
+ 
+   - name: Install chrome
+     apt: name=google-chrome-stable state=present update_cache=true
+     when: gui
+ 
