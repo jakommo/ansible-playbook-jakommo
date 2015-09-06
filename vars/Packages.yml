@@ -10,6 +10,7 @@ cli_items:
  - "nmap"
  - "openssh-server"
  - "iperf"
+ - "iptraf"
  - "ipcalc"
  - "dstat"
  - "nfs-common"
