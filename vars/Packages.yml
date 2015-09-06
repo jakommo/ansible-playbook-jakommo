@@ -25,6 +25,8 @@ cli_items:
  - "android-tools-adb"
  - "mc"
  - "lm-sensors"
+ - "thermald"
+ - "iptables-persistent"
 
 gui_items:
  - "meld"
