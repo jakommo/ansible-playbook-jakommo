@@ -42,4 +42,4 @@
 
 #db-[99:101]-node.example.com
 [my-machine]
-127.0.0.1
+127.0.0.1 #ansible_ssh_user=root
